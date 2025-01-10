@@ -65,7 +65,7 @@ export default function Home() {
     
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/search_subreddits?query=${encodeURIComponent(query)}`
+        `https://reddit-search.railway.internal/search_subreddits?query=${encodeURIComponent(query)}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -91,7 +91,7 @@ export default function Home() {
     setIsChatLoading(true);
   
     try {
-      const response = await fetch('http://127.0.0.1:8000/chat_history', {
+      const response = await fetch('https://reddit-search.railway.internal/chat_history', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

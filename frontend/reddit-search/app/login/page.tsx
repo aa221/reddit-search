@@ -17,7 +17,7 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     try {
       // Example: Redirect to Google OAuth
-      window.location.href = "http://127.0.0.1:8000/signin/google";
+      window.location.href = "https://reddit-search.railway.internal/signin/google";
 
       // In a real-world scenario, you might receive the userId from your backend
       // after the OAuth flow completes and set it like:
