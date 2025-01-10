@@ -1,64 +1,40 @@
-"use client";
-import { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Alert } from "@/components/ui/alert";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function LoginPage() {
-  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
+  const { userId, code } = router.query;
+
+  useEffect(() => {
+    if (userId) {
+      // Save userId to localStorage or your state management solution
+      localStorage.setItem("userId", userId as string);
+
+      // Redirect to the main application
+      router.push("/search"); // Update this to your main app page
+    } else if (code) {
+      // Handle the `code` parameter if needed (e.g., exchange for a session)
+      console.log("OAuth code received:", code);
+    }
+  }, [userId, code]);
 
   const handleGoogleLogin = async () => {
     try {
-      // Example: Redirect to Google OAuth
       window.location.href = "https://reddit-search-production.up.railway.app/signin/google";
-
-      // In a real-world scenario, you might receive the userId from your backend
-      // after the OAuth flow completes and set it like:
-      //
-      // const userIdFromServer = "1234"; // Example from server
-      // setUserId(userIdFromServer);
-      //
-      // Then redirect or handle next steps.
     } catch (error) {
-      setErrorMessage("Failed to login with Google. Please try again.");
       console.error("Google login failed:", error);
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <Card className="w-[350px]">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">
-            Reddit Search
-          </CardTitle>
-          <CardDescription className="text-center">
-            Find the information you need from subreddits, faster
-          </CardDescription>
-          <CardDescription className="text-center">
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {errorMessage && (
-            <Alert variant="destructive" className="mb-4">
-              {errorMessage}
-            </Alert>
-          )}
-          <div className="mt-4">
-            <Button className="w-full" onClick={handleGoogleLogin}>
-              Login with Google
-            </Button>
-          </div>
-        </CardContent>
-        <CardFooter>{/* ... */}</CardFooter>
-      </Card>
+      <div className="w-[350px]">
+        <h1 className="text-2xl font-bold text-center">Reddit Search</h1>
+        <p className="text-center">Find the information you need from subreddits, faster</p>
+        <button className="w-full mt-4 p-2 bg-blue-500 text-white" onClick={handleGoogleLogin}>
+          Login with Google
+        </button>
+      </div>
     </div>
   );
 }
