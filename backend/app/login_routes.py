@@ -25,7 +25,7 @@ def signin_with_google():
 @app.route("/callback")
 def callback():
     code = request.args.get("code")
-    next_url = request.args.get("next", "http://localhost:3000/search")  # Update as needed
+    next_url = request.args.get("next", "https://reddit-search-i6tvxgt2u-aa221s-projects.vercel.app/search")  # Update as needed
 
     if code:
         res = supabase.auth.exchange_code_for_session({"auth_code": code})

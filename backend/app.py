@@ -1,10 +1,15 @@
 from app import app
 from flask_cors import CORS
-import sys,os
-sys.path.append(os.path.abspath(os.path.dirname(os.path.dirname(__file__)))) #TODO:tidy this up
+import os
 
-from app import login_routes,reddit_routes,chatbot_routes
+# Enable CORS
 CORS(app)
 
+# Register Blueprints or Routes
+from app import login_routes, reddit_routes, chatbot_routes
+
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8000)  # Run locally on port 5000
+    # Get the port from the environment variable or default to 8000
+    port = int(os.environ.get("PORT", 8000))
+    # Bind to all interfaces
+    app.run(host="0.0.0.0", port=port)
