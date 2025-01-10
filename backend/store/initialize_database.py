@@ -6,8 +6,6 @@ import os
 """
 This initializes supabase (our giant storage unit)
 """
-os.environ.pop("SUPABASE_URL", None)
-os.environ.pop("SUPABASE_KEY", None)
 
 
 load_dotenv()  # Load environment variables from .env file
