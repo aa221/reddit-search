@@ -65,7 +65,7 @@ export default function Home() {
     
     try {
       const response = await fetch(
-        `https://reddit-search.up.railway.app/search_subreddits?query=${encodeURIComponent(query)}`
+        `https://reddit-search-production.up.railway.app/search_subreddits?query=${encodeURIComponent(query)}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -91,7 +91,7 @@ export default function Home() {
     setIsChatLoading(true);
   
     try {
-      const response = await fetch('https://reddit-search.up.railway.app/chat_history', {
+      const response = await fetch('https://reddit-search-production.up.railway.app/chat_history', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
