@@ -3,7 +3,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image"; // For optimized images
 import { Button} from "@/components/ui/button"; // Adjust based on your project structure
 import { Alert} from "@/components/ui/alert"; // Adjust based on your project structure
 
