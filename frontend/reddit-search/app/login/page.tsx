@@ -52,16 +52,7 @@ export default function LoginPage() {
           Login with Google
         </Button>
         {/* Example of replacing an <img> tag with <Image> */}
-        <div className="mt-6 text-center">
-          {/* Replace the src and alt with your actual image path and description */}
-          <Image
-            src="/path-to-logo.png"
-            alt="Reddit Search Logo"
-            width={100}
-            height={100}
-            priority
-          />
-        </div>
+
       </div>
     </div>
   );

@@ -113,7 +113,7 @@ export default function ChatDialog({
   
     // Call the chat_with_bot API
     try {
-      const response = await fetch('http://127.0.0.1:8000/chat', {
+      const response = await fetch('https://reddit-search-production.up.railway.app/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ export default function ChatDialog({
     setError(null);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/delete_conversation', {
+      const response = await fetch('https://reddit-search-production.up.railway.app/delete_conversation', {
         method: 'POST', // Changed to POST for sending JSON body
         headers: {
           'Content-Type': 'application/json',
