@@ -10,7 +10,8 @@ from store.initialize_database import supabase
 
 @app.route("/signin/google")
 def signin_with_google():
-    redirect_to_url = f"{request.host_url}callback"
+    redirect_to_url = "https://reddit-search-tau.vercel.app/callback"
+
     res = supabase.auth.sign_in_with_oauth(
         {
             "provider": "google",
