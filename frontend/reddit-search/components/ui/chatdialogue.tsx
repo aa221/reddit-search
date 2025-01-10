@@ -11,7 +11,6 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -95,23 +94,23 @@ export default function ChatDialog({
     //   console.log('Scrolled into view using scrollAnchorRef');
     // }
   };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevents the default form submission behavior
+  
     if (!input.trim() || isSending) return;
-
+  
     setIsSending(true);
-
+  
     // Add user message
     const userMessage: Message = {
       role: 'user',
       content: input,
       timestamp: new Date(),
     };
-
+  
     setMessages(prev => [...prev, userMessage]);
     setInput('');
-
+  
     // Call the chat_with_bot API
     try {
       const response = await fetch('http://127.0.0.1:8000/chat', {
@@ -125,11 +124,11 @@ export default function ChatDialog({
           user_id: userId,
         }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+  
       const data = await response.json();
       const assistantMessage: Message = {
         role: 'assistant',
@@ -150,6 +149,7 @@ export default function ChatDialog({
       setIsSending(false);
     }
   };
+  
 
   // Handler to delete conversation
   const handleDeleteConversation = async () => {
@@ -183,9 +183,9 @@ export default function ChatDialog({
 
       // Clear chat history
       setMessages([]);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error deleting conversation:", err);
-      setError(err.message || "An error occurred while deleting the conversation.");
+      setError((err as Error).message || "An error occurred while deleting the conversation.");
     } finally {
       setIsDeleting(false);
       setIsConfirmOpen(false); // Close confirmation dialog after action

@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -11,12 +10,9 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
-import { useUser } from "@/app/context/UserContext"; // <-- import the context hook
 
 export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
-  const { userId, setUserId } = useUser(); // <-- destructure from context
-  const router = useRouter();
 
   const handleGoogleLogin = async () => {
     try {

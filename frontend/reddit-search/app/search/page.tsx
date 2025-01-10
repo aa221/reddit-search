@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+export const dynamic = "force-dynamic";
+
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -58,7 +60,7 @@ export default function Home() {
     }
   }, [searchParams, setUserId, userId, router]);
 
-  const handleSearch = useCallback(async (reset = false) => {
+  const handleSearch = useCallback(async () => {
     setIsSearchLoading(true);
     
     try {
@@ -85,9 +87,9 @@ export default function Home() {
 
   const handleQuickChat = useCallback(async () => {
     if (!selectedSubreddit || !userId || !subredditName) return;
-
+  
     setIsChatLoading(true);
-
+  
     try {
       const response = await fetch('http://127.0.0.1:8000/chat_history', {
         method: 'POST',
@@ -99,11 +101,11 @@ export default function Home() {
           user_id: userId,
         }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to fetch chat history');
       }
-
+  
       const data = await response.json();
       if (data.response && Array.isArray(data.response) && data.response.length > 0) {
         const parsedHistory: Message[] = data.response.map((item: ChatHistoryItem) => {
@@ -113,7 +115,7 @@ export default function Home() {
               { role: 'user', content: question, timestamp: new Date() },
               { role: 'assistant', content: answer, timestamp: new Date() },
             ]));
-          } catch (e) {
+          } catch  { // Prefixed with '_'
             const [question, answer] = item.chat_history.split(': ');
             return [
               { role: 'user', content: question, timestamp: new Date() },
@@ -159,12 +161,12 @@ export default function Home() {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                handleSearch(true);
+                handleSearch();
               }
             }}
             className="flex-1"
           />
-          <Button onClick={() => handleSearch(true)}>Search</Button>
+          <Button onClick={() => handleSearch()}>Search</Button>
         </div>
       </div>
 
